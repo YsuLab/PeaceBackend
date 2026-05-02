@@ -21,20 +21,10 @@ public class JournalRefactorController {
     }
 
     @PostMapping("/reflector")
-    public RefactorResponse refactorThought(@RequestBody RefactorRequest request) throws JsonProcessingException {
-
-        // Combining the system instructions with the user's raw entry for a simple API call
-        String jsonOutput = null;
-        try {
-            jsonOutput = ReflectionService.refactorEntry(request.rawEntry());
-        } // Change for a better api response
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
+    public RefactorResponse refactorThought(@RequestBody RefactorRequest request) throws Exception {
+        String jsonOutput = ReflectionService.refactorEntry(request.rawEntry());
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(jsonOutput, RefactorResponse.class);// Returns the clean, refactored text to your mobile app
+        return mapper.readValue(jsonOutput, RefactorResponse.class);
     }
     @PostMapping("/test-reflector")
     public RefactorResponse testReflector() {
